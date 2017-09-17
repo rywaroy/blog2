@@ -1,47 +1,50 @@
 <template>
   <div id="home">
   <mt-tab-container v-model="selected" :swipeable="swiper">
-    <mt-tab-container-item id="主页">
+    <mt-tab-container-item id="home">
       <home></home>
     </mt-tab-container-item>
-    <mt-tab-container-item id="文章">
-      222
+    <mt-tab-container-item id="article">
+      <articles></articles>
     </mt-tab-container-item>
-    <mt-tab-container-item id="相册">
+    <mt-tab-container-item id="album">
       333
     </mt-tab-container-item>
   </mt-tab-container>
   <mt-tabbar v-model="selected">
-    <mt-tab-item id="主页">
+    <mt-tab-item id="home">
       <img slot="icon" src="../assets/icon1.png">
       主页
     </mt-tab-item>
-    <mt-tab-item id="文章">
+    <mt-tab-item id="article">
       <img slot="icon" src="../assets/icon2.png">
       文章
     </mt-tab-item>
-    <mt-tab-item id="相册">
+    <mt-tab-item id="album">
       <img slot="icon" src="../assets/icon3.png">
       相册
     </mt-tab-item>
   </mt-tabbar>
   </div>
 </template>
+
 <script>
-  import Home from './Home.vue'
+  import Home from './Home/Home.vue'
+  import Article from './Article/Article.vue'
   export default  {
       data(){
           return{
-            selected:'主页',
+            selected:'home',
             swiper:true
           }
       },
       components:{
-          'home':Home
+          'home':Home,
+        'articles':Article
       }
   }
 </script>
-<style>
+<style scoped lang="scss">
   .mint-tab-item:nth-child(1){
      color: #1296db;
    }
@@ -60,13 +63,5 @@
   .mint-tabbar .mint-tab-item:nth-child(3).is-selected{
     color: #d81e06 !important;
   }
-  .blog-page{
-    width: 100%;
-    height: 100vh;
-    box-sizing: border-box;
-    padding-bottom: 55px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+
 </style>

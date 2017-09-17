@@ -1,0 +1,29 @@
+{
+  "name": "blog2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rywaroy/blog2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rywaroy/blog2/issues"
+  },
+  "homepage": "https://github.com/rywaroy/blog2#readme",
+  "dependencies": {
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.2.1",
+    "koa-static2": "^0.1.8",
+    "mysql": "^2.14.1",
+    "promise": "^8.0.1"
+  }
+}

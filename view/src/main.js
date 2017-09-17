@@ -7,7 +7,8 @@ import VueRouter from 'vue-router'
 import Index from './components/Index.vue'
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css';
-
+import './assets/reset.css';
+import plus from './public'
 Vue.use(Mint);
 Vue.use(VueRouter)
 
