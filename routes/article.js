@@ -3,6 +3,7 @@ const db = require('../database');
 
 //获取文章列表
 router.get('/list',async(ctx) => {
+    console.log(ctx.session.uid)
     let page = ctx.query.page || '1'
     let limit = ctx.query.limit || '10'
     let data = await getList(page,limit)
@@ -10,7 +11,6 @@ router.get('/list',async(ctx) => {
 })
 
 function getList(page,limit) {
-
     return new Promise(function (resolve,reject) {
         db.query('select * from article limit ' +  (page-1)*limit + ' , ' + limit,function (err,row) {
             if (err) {
