@@ -52,7 +52,7 @@
                     return;
                 }
                 var _this = this;
-                axios.post('/admin/login', {
+                axios.post(plus.path + '/api/admin/login', {
                     account: _this.ph,
                     password: _this.pw
                 })

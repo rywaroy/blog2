@@ -25,7 +25,7 @@ app.use(cors())
 app.use(convert(require('koa-static2')("/public",__dirname + '/public')));
 app.use(convert(bodyparser));
 app.use(convert(json()));
-
+app.use(require('./middlewares/returnData'));
 //session
 
 app.keys = ['admin'];

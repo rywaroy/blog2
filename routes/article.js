@@ -1,8 +1,8 @@
 const router = require('koa-router')();
 const db = require('../database');
-
+const login = require('../middlewares/isLogin')
 //获取文章列表
-router.get('/list',async(ctx) => {
+router.get('/list',login.isLogin,async(ctx) => {
     console.log(ctx.session.uid)
     let page = ctx.query.page || '1'
     let limit = ctx.query.limit || '10'
