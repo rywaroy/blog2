@@ -58,9 +58,9 @@
                 })
                     .then(function (res) {
                         if(res.data.status == '0000'){
-//                            window.localStorage.setItem('token',res.data.data.token);
-//                            window.localStorage.setItem('host',JSON.stringify(res.data.data));
-//                            _this.$router.push({ path: '/'})
+                            window.localStorage.setItem('token',res.data.data.token);
+                            window.localStorage.setItem('host',JSON.stringify(res.data.data));
+                            _this.$router.push({ path: '/'})
                         }else{
                             _this.$message({
                                 message: res.data.msg,
