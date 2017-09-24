@@ -17,10 +17,10 @@
                     prop="time"
                     label="创建时间">
             </el-table-column>
-            <!--<el-table-column-->
-                    <!--prop="watch"-->
-                    <!--label="访问量">-->
-            <!--</el-table-column>-->
+            <el-table-column
+                    prop="tag"
+                    label="标签">
+            </el-table-column>
             <el-table-column label="操作">
                 <template scope="scope">
                     <el-button type="text" @click="deletes(scope.$index)" size="small">删除</el-button>
@@ -107,7 +107,7 @@
 
             },
             check(index){
-                this.$router.push({path: '/home/articleinfo', query: {id: this.tableData[index]._id}})
+                this.$router.push({path: '/home/articleinfo', query: {id: this.tableData[index].id}})
             },
             handleCurrentChange(val){
                 this.page = val;

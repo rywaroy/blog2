@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from '@/components/Home.vue';
 import AdminLogin from '@/components/AdminLogin';
 import ArticleList from '@/components/ArticleList.vue';
+import Article from '@/components/Article.vue'
+import ArticleInfo from '@/components/ArticleInfo.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -20,14 +22,14 @@ export default new Router({
           path:'articlelist',
           component:ArticleList
         },
-        // {
-        //   path:'articleinfo',
-        //   component:ArticleInfo
-        // },
-        // {
-        //   path:'article',
-        //   component:Article
-        // },
+        {
+          path:'articleinfo',
+          component:ArticleInfo
+        },
+        {
+          path:'article',
+          component:Article
+        },
       ]
     }
   ]
