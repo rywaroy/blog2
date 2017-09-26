@@ -104,4 +104,33 @@ function getTag() {
 	})
 }
 
+//更新文章
+router.post('/update' async(ctx) =>{
+	let title = ctx.request.body.title;
+	let intro = ctx.request.body.intro;
+	let content = ctx.request.body.content;
+	let tagId = ctx.request.body.tagId;
+	let tag = ctx.request.body.tag;
+	try {
+		await addArticle(title,intro,content,time,tagId,tag)
+		ctx.success('0000','更新成功')
+	}catch (err){
+		ctx.error('0011','更新失败')
+	}
+
+})	
+
+function updateArticle(title,intro,content,time,tagId,tag){
+	return new Promise(function (resolve,reject) {
+		db.query('update article set title = ?,intro = ?,content = ?,,tagid = ?,tag = ?',[title,intro,content,time,tagId,tag],function (err,rows) {
+			if(err){
+				reject(err)
+			}else{
+				resolve()
+			}
+		})
+	})
+		
+}
+
 module.exports = router;
