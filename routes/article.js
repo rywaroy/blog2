@@ -105,30 +105,41 @@ function getTag() {
 }
 
 //更新文章
-router.post('/update' async(ctx) =>{
+router.post('/update', async(ctx) =>{
+	let id = ctx.request.body.id;
 	let title = ctx.request.body.title;
 	let intro = ctx.request.body.intro;
 	let content = ctx.request.body.content;
 	let tagId = ctx.request.body.tagId;
 	let tag = ctx.request.body.tag;
 	try {
-		await addArticle(title,intro,content,time,tagId,tag)
+		await updateArticle(title,intro,content,tagId,tag,id)
 		ctx.success('0000','更新成功')
 	}catch (err){
-		ctx.error('0011','更新失败')
+		ctx.error('0011','更新失败',{msg:err})
 	}
-
+	
 })	
 
-function updateArticle(title,intro,content,time,tagId,tag){
+function updateArticle(title,intro,content,tagId,tag,id){
+	console.log(id)
 	return new Promise(function (resolve,reject) {
-		db.query('update article set title = ?,intro = ?,content = ?,,tagid = ?,tag = ?',[title,intro,content,time,tagId,tag],function (err,rows) {
+		db.query('update article set title = ?,intro = ?,content = ?,tagid = ?,tag = ? where id = ?',[title,intro,content,tagId,tag,id],function (err,rows) {
 			if(err){
+				console.log(err)
 				reject(err)
 			}else{
 				resolve()
 			}
 		})
+		// console.log(123)
+		// db.query('update article set title = "123" where id = "'+id+'"',function (err,rows) {
+		// 	if(err){
+		// 		reject(err)
+		// 	}else{
+		// 		resolve()
+		// 	}
+		// })
 	})
 		
 }
