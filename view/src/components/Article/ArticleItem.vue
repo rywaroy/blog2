@@ -1,11 +1,17 @@
 <template>
   <router-link tag="div" :to="{name:'articleinfo'}" class="article-item">
-    <div class="article-item__tag">日志</div>
-    <div class="article-item__title">这是一篇文章的标题</div>
-    <div class="article-item__content">这是一篇文章的概括这是一篇文章的概括这是一篇文章的概括这是一篇文章的概括这是一篇文章的概括这是一篇文章的概括这是一篇文章的概括这是一篇文章的概括</div>
-    <div class="article-item__time">2017-9-9</div>
+    <div class="article-item__tag">{{info.tag}}</div>
+    <div class="article-item__title">{{info.title}}</div>
+    <div class="article-item__content">{{info.intro}}</div>
+    <div class="article-item__time">{{info.time.split('T')[0]}}</div>
   </router-link>
 </template>
+<script>
+export default {
+  props:['info']
+}
+</script>
+
 <style scoped lang="scss" rel="stylesheet/scss">
   .article-item{
     background: #fff;
@@ -17,7 +23,7 @@
       line-height: .4rem;
       height: .4rem;
       padding: 0 .1rem;
-      background: blue;
+      background: #99ccff;
       color: #fff;
       position: absolute;
       right: .3rem;

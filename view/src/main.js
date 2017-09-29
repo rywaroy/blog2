@@ -9,6 +9,8 @@ import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css';
 import './assets/reset.css';
 import plus from './public'
+import axiosPlugin from "./server";
+Vue.use(axiosPlugin.plugin);
 Vue.use(Mint);
 Vue.use(VueRouter)
 
