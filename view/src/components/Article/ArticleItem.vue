@@ -1,5 +1,5 @@
 <template>
-  <router-link tag="div" :to="{name:'articleinfo'}" class="article-item">
+  <router-link tag="div" :to="{name:'articleinfo',query:{id:info.id}}" class="article-item">
     <div class="article-item__tag">{{info.tag}}</div>
     <div class="article-item__title">{{info.title}}</div>
     <div class="article-item__content">{{info.intro}}</div>
