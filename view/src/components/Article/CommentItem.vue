@@ -1,10 +1,16 @@
 <template>
   <div class="comment-item">
-    <div class="comment-item__name">二狗</div>
-    <div class="comment-item__content">这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论</div>
-    <div class="comment-item__time">2017-9-9</div>
+    <div class="comment-item__name">{{info.name}}</div>
+    <div class="comment-item__content">{{info.content}}</div>
+    <div class="comment-item__time">{{info.time?info.time.split('T')[0]:''}}</div>
   </div>
 </template>
+<script>
+export default {
+  props:['info']
+}
+</script>
+
 <style scoped lang="scss" rel="stylesheet/scss">
   .comment-item{
     margin-bottom: .35rem;

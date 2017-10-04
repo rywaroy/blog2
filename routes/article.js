@@ -122,7 +122,6 @@ router.post('/update', async(ctx) =>{
 })	
 
 function updateArticle(title,intro,content,tagId,tag,id){
-	console.log(id)
 	return new Promise(function (resolve,reject) {
 		db.query('update article set title = ?,intro = ?,content = ?,tagid = ?,tag = ? where id = ?',[title,intro,content,tagId,tag,id],function (err,rows) {
 			if(err){
@@ -132,16 +131,57 @@ function updateArticle(title,intro,content,tagId,tag,id){
 				resolve()
 			}
 		})
-		// console.log(123)
-		// db.query('update article set title = "123" where id = "'+id+'"',function (err,rows) {
-		// 	if(err){
-		// 		reject(err)
-		// 	}else{
-		// 		resolve()
-		// 	}
-		// })
 	})
 		
+}
+
+router.post('/comment',async (ctx) =>{
+	let id = ctx.request.body.id;
+	let name = ctx.request.body.name || '匿名';
+	let content = ctx.request.body.content;
+	let time = new Date()
+	try {
+		await addComment(name,content,id,time)
+		ctx.success('0000','添加成功')
+	}catch (err){
+		ctx.error('0011','添加失败')
+	}
+})
+
+function addComment(name,content,aid,time){
+	return new Promise(function(resolve,reject){
+		db.query('insert into comment (name,content,aid,time) values(?,?,?,?)',[name,content,aid,time],function (err,rows) {
+			if (rows.insertId) {
+				resolve()
+			} else {
+				reject(err)
+			}
+		})
+	})
+}
+
+router.get('/comment',async (ctx) => {
+	let id = ctx.query.id;
+	try{
+		let rows = await getCommentList(id);
+		ctx.success('0000','获取成功',rows)
+	}catch(err){
+		ctx.error('0011','获取失败')
+	}
+	
+
+})
+
+function getCommentList(id){
+	return new Promise(function(resolve,reject){
+		db.query('select * from comment where aid = ' + id,function(err,rows){
+			if(err){
+				reject(err)
+			}else{
+				resolve(rows)
+			}
+		})
+	})
 }
 
 module.exports = router;

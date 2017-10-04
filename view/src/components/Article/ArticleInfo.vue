@@ -4,9 +4,9 @@
       <router-link to="/" slot="left">
         <mt-button icon="back">返回</mt-button>
       </router-link>
-      <router-link :to="{name:'comment'}" slot="right">
+      <a slot="right" @click="linkComment()">
         <mt-button>评论</mt-button>
-      </router-link>
+      </a>
     </mt-header>
     <div class="article-info">
       <div class="article-info__title">{{info.title}}</div>
@@ -14,7 +14,7 @@
       <div class="article-info__content" v-html="info.content"></div>
       <div class="article-info__comment">
         <div class="article-info__comment__title">评论</div>
-        <comment-item v-for="(item,index) in 8" :key="index"></comment-item>
+        <comment-item v-for="(item,index) in comments" :key="index" :info="item"></comment-item>
       </div>
     </div>
   </div>
@@ -26,7 +26,8 @@ import plus from '../../public'
 export default {
   data() {
     return {
-      info: {}
+      info: {},
+      comments:[]
     }
   },
   components: {
@@ -34,6 +35,7 @@ export default {
   },
   activated() {
     this.getInfo();
+    this.getComment();
   },
   methods: {
     getInfo() {
@@ -44,6 +46,18 @@ export default {
             _this.info = res.data.data;
           }
         })
+    },
+    getComment(){
+      var _this = this;
+      axios.get(plus.path + '/article/comment?id=' + this.$route.query.id)
+        .then(function(res){
+          if (res.data.status == '0000') {
+            _this.comments = res.data.data;
+          }
+        })
+    },
+    linkComment(){
+      this.$router.push({name:'comment',query:{id:this.info.id}})
     }
   }
 }

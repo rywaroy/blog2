@@ -13,7 +13,7 @@ body{
 *{
   font-size: .3rem;
   line-height: .46rem;
-  color: #333;
+  /* color: #333; */
   box-sizing: border-box;
   /*transition: all .3s;*/
 }
