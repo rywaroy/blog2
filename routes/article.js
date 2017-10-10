@@ -13,7 +13,7 @@ router.get('/list',async(ctx) => {
 
 function getList(page,limit) {
     return new Promise(function (resolve,reject) {
-        db.query('select id,title,intro,time,tag from article limit ' +  (page-1)*limit + ' , ' + limit,function (err,row) {
+        db.query('select a.id,a.title,a.intro,a.time,b.title as tag_name , b.color from article as a left join tag as b on a.tagid = b.id limit ' +  (page-1)*limit + ' , ' + limit,function (err,row) {
             if (err) {
                 reject(err)
             } else {
@@ -63,10 +63,9 @@ router.post('/add',login.isLogin,async(ctx) => {
 	let content = ctx.request.body.content;
 	let time = new Date();
 	let tagId = ctx.request.body.tagId;
-	let tag = ctx.request.body.tag;
 
 	try {
-		await addArticle(title,intro,content,time,tagId,tag)
+		await addArticle(title,intro,content,time,tagId)
 		ctx.success('0000','添加成功')
 	}catch (err){
 		ctx.error('0011','添加失败')
@@ -74,9 +73,9 @@ router.post('/add',login.isLogin,async(ctx) => {
 
 })
 
-function addArticle(title,intro,content,time,tagId,tag) {
+function addArticle(title,intro,content,time,tagId) {
 	return new Promise(function (resolve,reject) {
-		db.query('insert into article (title,intro,content,time,tagid,tag) values(?,?,?,?,?,?)',[title,intro,content,time,tagId,tag],function (err,rows) {
+		db.query('insert into article (title,intro,content,time,tagid) values(?,?,?,?,?)',[title,intro,content,time,tagId],function (err,rows) {
 			if (rows.insertId) {
 				resolve()
 			} else {
@@ -111,9 +110,8 @@ router.post('/update', async(ctx) =>{
 	let intro = ctx.request.body.intro;
 	let content = ctx.request.body.content;
 	let tagId = ctx.request.body.tagId;
-	let tag = ctx.request.body.tag;
 	try {
-		await updateArticle(title,intro,content,tagId,tag,id)
+		await updateArticle(title,intro,content,tagId,id)
 		ctx.success('0000','更新成功')
 	}catch (err){
 		ctx.error('0011','更新失败',{msg:err})
@@ -121,9 +119,9 @@ router.post('/update', async(ctx) =>{
 	
 })	
 
-function updateArticle(title,intro,content,tagId,tag,id){
+function updateArticle(title,intro,content,tagId,id){
 	return new Promise(function (resolve,reject) {
-		db.query('update article set title = ?,intro = ?,content = ?,tagid = ?,tag = ? where id = ?',[title,intro,content,tagId,tag,id],function (err,rows) {
+		db.query('update article set title = ?,intro = ?,content = ?,tagid = ? where id = ?',[title,intro,content,tagId,id],function (err,rows) {
 			if(err){
 				console.log(err)
 				reject(err)

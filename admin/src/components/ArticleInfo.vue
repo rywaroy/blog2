@@ -4,8 +4,8 @@
         <el-input v-model="intro" style="margin-bottom: 30px" placeholder="文章简介"></el-input>
         <quill-editor ref="myTextEditor" v-model="content" style="height: 400px">
         </quill-editor>
-        <el-select v-model="tagIndex" placeholder="请选择" class="fr">
-            <el-option v-for="(item,index) in tagList" :key="index" :label="item.title" :value="index">
+        <el-select v-model="tagId" placeholder="请选择" class="fr">
+            <el-option v-for="(item,index) in tagList" :key="index" :label="item.title" :value="item.id">
             </el-option>
         </el-select>
         <div class="publish-btn">
@@ -66,7 +66,7 @@ export default {
             total: null,
             limit: 5,
             tagList:[],
-            tagIndex:''
+            tagId:''
         }
     },
     activated() {
@@ -87,6 +87,7 @@ export default {
                     _this.intro = res.data.data.intro;
                     _this.title = res.data.data.title;
                     _this.content = res.data.data.content;
+                    _this.tagId = res.data.data.tagid;
                 }
             })
         },
@@ -168,7 +169,7 @@ export default {
             if (!this.content) {
                 return;
             }
-            if (this.tagIndex == null) {
+            if (!this.tagId) {
                 return;
             }
             var _this = this;
@@ -177,8 +178,7 @@ export default {
                 content: _this.content,
                 id: _this.$route.query.id,
                 intro: _this.intro,
-                tag: _this.tagList[_this.tagIndex].title,
-                tagId: _this.tagList[_this.tagIndex].id,
+                tagId: _this.tagId,
                 token: window.localStorage.getItem('token')
             }).then(function(res) {
                 if (res.data.state == 1) {

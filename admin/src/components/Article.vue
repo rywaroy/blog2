@@ -8,12 +8,12 @@
     </quill-editor>
     <div class="publish-btn">
       <el-button @click="publish()" class="fl">发表</el-button>
-      <el-select v-model="tagIndex" placeholder="请选择" class="fr">
+      <el-select v-model="tagId" placeholder="请选择" class="fr">
         <el-option
           v-for="(item,index) in tagList"
           :key="index"
           :label="item.title"
-          :value="index">
+          :value="item.id">
         </el-option>
       </el-select>
     </div>
@@ -46,7 +46,7 @@
         content: '',
         intro: '',
         tagList:[],
-        tagIndex:''
+        tagId:''
       }
     },
     mounted(){
@@ -63,7 +63,7 @@
         if (!this.content) {
           return;
         }
-        if (this.tagIndex == null) {
+        if (!this.tagId) {
           return;
         }
         var _this = this;
@@ -71,8 +71,7 @@
           title: _this.title,
           content: _this.content,
           intro: _this.intro,
-          tag: _this.tagList[_this.tagIndex].title,
-          tagId: _this.tagList[_this.tagIndex].id,
+          tagId: _this.tagId,
           token: window.localStorage.getItem('token')
         }).then(function (res) {
           if (res.data.status == '0000') {

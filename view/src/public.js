@@ -24,6 +24,6 @@ plus.set_font = function (num) {
   return this;
 }
 plus.set_font(750);
-plus.path = 'http://localhost:3001/api'
-
+// plus.path = 'http://localhost:3001/api'
+plus.path = 'http://www.3zsd.com/api'
 export default plus;

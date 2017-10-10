@@ -8,7 +8,7 @@
       <articles></articles>
     </mt-tab-container-item>
     <mt-tab-container-item id="album">
-      333
+      <album></album>
     </mt-tab-container-item>
   </mt-tab-container>
   <mt-tabbar v-model="selected">
@@ -31,6 +31,7 @@
 <script>
   import Home from './Home/Home.vue'
   import Article from './Article/Article.vue'
+  import Album from './Album/Album.vue'
   export default  {
       data(){
           return{
@@ -40,7 +41,8 @@
       },
       components:{
           'home':Home,
-        'articles':Article
+        'articles':Article,
+        'album':Album
       }
   }
 </script>

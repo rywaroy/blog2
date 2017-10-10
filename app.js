@@ -7,7 +7,7 @@ const convert = require('koa-convert');
 const json = require('koa-json');
 const bodyparser = require('koa-bodyparser')();
 const session = require('koa-session');
-
+var staticServer = require('koa-static');
 const article = require('./routes/article');
 const admin = require('./routes/admin');
 const fs = require('fs')
@@ -20,7 +20,7 @@ const fs = require('fs')
 
 
 
-
+app.use(staticServer(__dirname + '/view/dist'));
 
 
 
@@ -51,9 +51,22 @@ app.use(session(CONFIG, app));
 router.use('/api/article', article.routes(), article.allowedMethods());
 router.use('/api/admin',admin.routes(),admin.allowedMethods());
 router.get('/admin', async (ctx) => {
-    console.log(1)
     var htmlFile = await (new Promise(function(resolve, reject){
-        fs.readFile('./admin/index.html', (err, data) => {
+        fs.readFile('./admin/dist/index.html', (err, data) => {
+            if (err){
+                reject(err);
+            }else{
+                resolve(data);
+            }
+        });
+    }))
+    ctx.type = 'html';
+    ctx.body = htmlFile;
+    // res.sendFile(path.join(__dirname + '/admin/index.html'));
+});
+router.get('/', async (ctx) => {
+    var htmlFile = await (new Promise(function(resolve, reject){
+        fs.readFile('./view/dist/index.html', (err, data) => {
             if (err){
                 reject(err);
             }else{
@@ -67,5 +80,5 @@ router.get('/admin', async (ctx) => {
 });
 app.use(router.routes(), router.allowedMethods());
 
-app.listen(3001);
+app.listen(80);
 console.log('app started at port 3000...');

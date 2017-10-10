@@ -1,6 +1,6 @@
 <template>
   <router-link tag="div" :to="{name:'articleinfo',query:{id:info.id}}" class="article-item">
-    <div class="article-item__tag">{{info.tag}}</div>
+    <div class="article-item__tag" :style="{background:info.color}">{{info.tag_name}}</div>
     <div class="article-item__title">{{info.title}}</div>
     <div class="article-item__content">{{info.intro}}</div>
     <div class="article-item__time">{{info.time.split('T')[0]}}</div>
