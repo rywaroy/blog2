@@ -5,6 +5,7 @@
                 <!--<el-menu-item index="1" @click="go('hostinfo')">个人信息</el-menu-item>-->
                 <!--<el-menu-item index="2" @click="go('userlist')">用户列表</el-menu-item>-->
                 <el-menu-item index="1" @click="go('articlelist')">文章列表</el-menu-item>
+                <el-menu-item index="2" @click="go('album')">相册</el-menu-item>
                 <!--<el-menu-item index="4" @click="go('question')">问答区</el-menu-item>-->
                 <!--<el-menu-item index="5" @click="go('message')">留言板</el-menu-item>-->
                 <!--<el-menu-item index="6" @click="go('impression')">好友印象</el-menu-item>-->
@@ -29,7 +30,7 @@
         },
         methods:{
             go(url){
-                this.$router.push({ path: '/home/'+url})
+                this.$router.push({name:url})
             }
         }
     }

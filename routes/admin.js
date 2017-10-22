@@ -1,6 +1,5 @@
 const router = require('koa-router')();
 const db = require('../database');
-const Data = require('../config/sendData')
 const uuid = require('uuid');
 
 router.post('/login',async(ctx) => {

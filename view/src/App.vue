@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <keep-alive>
+      <keep-alive exclude="group">
         <router-view class="child-view"></router-view>
       </keep-alive>
     </transition>

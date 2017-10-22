@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
+import './assets/reset.css'
 import 'element-ui/lib/theme-default/index.css';
 // import axiosPlugin from "./server";
 // Vue.use(axiosPlugin.plugin);

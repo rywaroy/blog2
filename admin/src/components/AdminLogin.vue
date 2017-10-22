@@ -4,7 +4,6 @@
             <el-input v-model="ph" placeholder="请输入账号" class="login-input"></el-input>
             <el-input v-model="pw" placeholder="请输入密码" type="password" class="login-input"></el-input>
             <el-button type="primary" class="login-btn" @click="login()">登录</el-button>
-          <el-button type="primary" class="login-btn" @click="list()">list</el-button>
         </div>
     </div>
 </template>

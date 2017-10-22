@@ -10,6 +10,8 @@ const session = require('koa-session');
 var staticServer = require('koa-static');
 const article = require('./routes/article');
 const admin = require('./routes/admin');
+const album = require('./routes/album');
+const file = require('./routes/file')
 const fs = require('fs')
 // 对于任何请求，app将调用该异步函数处理请求：
 // app.use(async (ctx, next) => {
@@ -20,7 +22,7 @@ const fs = require('fs')
 
 
 
-app.use(staticServer(__dirname + '/view/dist'));
+app.use(staticServer(__dirname + '/static'));
 
 
 
@@ -28,31 +30,20 @@ app.use(cors())
 
 
 //中间件
-app.use(convert(require('koa-static2')("/public",__dirname + '/public')));
+
 app.use(convert(bodyparser));
 app.use(convert(json()));
 app.use(require('./middlewares/returnData'));
-//session
 
-app.keys = ['admin'];
-const CONFIG = {
-    key: 'koa:sess', /** (string) cookie key (default is koa:sess) */
-    /** (number || 'session') maxAge in ms (default is 1 days) */
-    /** 'session' will result in a cookie that expires when session/browser is closed */
-    /** Warning: If a session cookie is stolen, this cookie will never expire */
-    maxAge: 600000,
-    overwrite: true, /** (boolean) can overwrite or not (default true) */
-    httpOnly: true, /** (boolean) httpOnly or not (default true) */
-    signed: true, /** (boolean) signed or not (default true) */
-    rolling: false, /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. default is false **/
-};
-app.use(session(CONFIG, app));
 
 router.use('/api/article', article.routes(), article.allowedMethods());
 router.use('/api/admin',admin.routes(),admin.allowedMethods());
+router.use('/api/album',album.routes(),album.allowedMethods());
+router.use('/api/file', file.routes(), file.allowedMethods());
 router.get('/admin', async (ctx) => {
     var htmlFile = await (new Promise(function(resolve, reject){
-        fs.readFile('./admin/dist/index.html', (err, data) => {
+        
+        fs.readFile('./admin/index.html', (err, data) => {
             if (err){
                 reject(err);
             }else{
@@ -66,13 +57,20 @@ router.get('/admin', async (ctx) => {
 });
 router.get('/', async (ctx) => {
     var htmlFile = await (new Promise(function(resolve, reject){
-        fs.readFile('./view/dist/index.html', (err, data) => {
-            if (err){
-                reject(err);
-            }else{
-                resolve(data);
-            }
-        });
+        let deviceAgent = ctx.headers['user-agent'].toLowerCase();
+        let agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
+        if(agentID){
+            fs.readFile('./views/index.html', (err, data) => {
+                if (err){
+                    reject(err);
+                }else{
+                    resolve(data);
+                }
+            });
+        }else{
+            console.log('指到pc网页')
+        }
+        
     }))
     ctx.type = 'html';
     ctx.body = htmlFile;
@@ -81,4 +79,4 @@ router.get('/', async (ctx) => {
 app.use(router.routes(), router.allowedMethods());
 
 app.listen(80);
-console.log('app started at port 3000...');
+console.log('app started at port 3001...');

@@ -7,6 +7,7 @@ const asyncComponent = (name) => {
 const Index = asyncComponent('Index')
 const ArticelInfo = asyncComponent('Article/ArticleInfo')
 const Comment = asyncComponent('Article/Comment')
+const Group = asyncComponent('Album/Group')
 Vue.use(Router)
 
 export default new Router({
@@ -25,6 +26,11 @@ export default new Router({
       path:'/article/info/comment',
       name:'comment',
       component:Comment
+    },
+    {
+      path:'/album/group',
+      name:'group',
+      component:Group
     }
   ]
 })
